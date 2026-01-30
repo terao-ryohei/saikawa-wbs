@@ -1,0 +1,73 @@
+---
+# Frontend build tool
+vite:
+  enabled: true
+webpack:
+  enabled: false
+
+# === タスク管理用に最適化した設定 ===
+# Issue、Board、Wiki、Milestoneなどのタスク管理機能だけを使う場合に不要なサービスを無効化
+
+# デフォルトプロジェクト機能の設定
+# Merge Request、Snippets、Builds (CI/CD) を無効化
+gitlab:
+  default_projects_features:
+    issues: true
+    merge_requests: false
+    wiki: true
+    snippets: false
+    builds: false
+    container_registry: false
+
+# Elasticsearch: 全文検索エンジン (1-2GB メモリ使用)
+# タスク管理用途では GitLab の基本検索で十分なため無効化
+elasticsearch:
+  enabled: false
+
+# ClickHouse: 分析用データベース (500MB-1GB メモリ使用)
+# 使用状況分析やレポート機能に使用。タスク管理では不要
+clickhouse:
+  enabled: false
+
+# GitLab Pages: 静的サイトホスティング機能
+# プロジェクトの Wiki やドキュメントを公開 Web サイトとしてホスト
+# タスク管理のみの用途では不要
+gitlab_pages:
+  enabled: false
+
+# Container Registry: Docker イメージレジストリ
+# CI/CD で Docker イメージを保存・管理する機能
+# タスク管理のみの用途では不要
+registry:
+  enabled: false
+
+# Prometheus: メトリクス収集・監視システム (200-500MB メモリ使用)
+# システムパフォーマンスの監視用。開発環境では不要
+prometheus:
+  enabled: false
+
+# Grafana: メトリクス可視化ダッシュボード (100-200MB メモリ使用)
+# Prometheus のデータを可視化。開発環境では不要
+grafana:
+  enabled: false
+
+# Snowplow Micro: アナリティクストラッキング (100MB メモリ使用)
+# ユーザー行動分析用。開発環境では不要
+snowplow_micro:
+  enabled: false
+
+# Git LFS: 大容量ファイルストレージ
+# リポジトリ内の大きなバイナリファイルを外部保存する機能
+# Issue への添付ファイルは別の仕組みで動作するため不要
+object_store:
+  enabled: false
+
+# リソース使用量の削減
+# ActionCable: WebSocket 接続のワーカープール数を削減
+action_cable:
+  worker_pool_size: 2
+
+# Sidekiq: バックグラウンドジョブの並行実行数を削減
+gitlab:
+  sidekiq:
+    concurrency: 5

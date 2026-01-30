@@ -1,0 +1,31 @@
+{
+  "name": "GitLab Development Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "2.45.2"
+    }
+  },
+  "remoteEnv": {
+    "PATH": "/workspace/gdk/bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/go/bin:/go/bin:${containerEnv:PATH}"
+  },
+  "forwardPorts": [3000, 3038, 5432, 6379],
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.Ruby",
+        "shopify.ruby-lsp",
+        "kaiwood.endwise",
+        "misogi.ruby-rubocop",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  }
+}
