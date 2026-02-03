@@ -5,30 +5,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace:cached
+      - gdk-data:/workspace/gdk
     command: sleep infinity
-    depends_on:
-      - db
-      - redis
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/gitlab_development
-      REDIS_URL: redis://redis:6379/0
-
-  db:
-    image: postgres:16.5
-    restart: unless-stopped
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gitlab_development
-
-  redis:
-    image: redis:7.2
-    restart: unless-stopped
-    volumes:
-      - redis-data:/data
 
 volumes:
-  postgres-data:
-  redis-data:
+  gdk-data:

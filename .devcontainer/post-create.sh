@@ -42,24 +42,17 @@ yarn --version
 
 echo ""
 echo "============================================"
-echo "Checking service connections..."
-echo "============================================"
-
-echo ""
-echo "--- PostgreSQL Server Version ---"
-PAGER=cat PGPASSWORD=postgres psql -h db -U postgres -c "SELECT version();" 2>/dev/null || echo "PostgreSQL not yet available"
-
-echo ""
-echo "--- Redis Server Version ---"
-redis-cli -h redis INFO server 2>/dev/null | grep redis_version || echo "Redis not yet available"
-
-echo ""
-echo "============================================"
 echo "Setting up GDK..."
 echo "============================================"
 
+# Fix named volume ownership (Docker creates it as root)
+if [ "$(stat -c %U /workspace/gdk)" = "root" ]; then
+  echo "Fixing /workspace/gdk ownership..."
+  sudo chown -R vscode:vscode /workspace/gdk
+fi
+
 # GDK clone (initial setup only)
-if [ ! -d "/workspace/gdk" ]; then
+if [ ! -d "/workspace/gdk/.git" ]; then
   echo "Cloning GDK repository..."
   git clone https://gitlab.com/gitlab-org/gitlab-development-kit.git /workspace/gdk
 else
@@ -96,6 +89,20 @@ echo "(GitLab source clone + bundle install + yarn install)"
 echo "============================================"
 gdk install
 echo "GDK install completed"
+
+# Checkout feature/gantt-charts branch
+echo ""
+echo "============================================"
+echo "Checking out feature/gantt-charts branch..."
+echo "============================================"
+cd /workspace/gdk/gitlab
+git fetch origin
+if git checkout feature/gantt-charts; then
+  echo "Successfully checked out feature/gantt-charts"
+else
+  echo "WARNING: feature/gantt-charts branch not found, staying on default branch"
+fi
+cd /workspace/gdk
 
 echo ""
 echo "============================================"

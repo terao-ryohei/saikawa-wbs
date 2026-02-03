@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "name": "gitlab (dev)",
+      "path": "/workspace/gdk/gitlab"
+    },
+    {
+      "name": "gdk (infra)",
+      "path": "/workspace/gdk"
+    },
+    {
+      "name": "saikawa-wbs (config)",
+      "path": "/workspace"
+    }
+  ],
+  "settings": {
+    "git.repositoryScanMaxDepth": 0,
+    "git.ignoredRepositories": [
+      "/workspace/gdk/gitlab",
+      "/workspace/gdk/gitaly",
+      "/workspace/gdk/gitlab-shell",
+      "/workspace/gdk/gitlab-http-router",
+      "/workspace/gdk/gitlab-topology-service"
+    ]
+  }
+}

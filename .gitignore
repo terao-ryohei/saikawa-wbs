@@ -1,5 +1,6 @@
-# macOS
-.DS_Store
-
-# GDK (managed separately)
-/gdk/
+gdk/
+*.log
+.env
+.env.*
+secrets/
+node_modules/

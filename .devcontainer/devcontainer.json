@@ -1,5 +1,5 @@
 {
-  "name": "GitLab Development Environment",
+  "name": "GitLab FOSS Development Environment",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -12,7 +12,7 @@
   "remoteEnv": {
     "PATH": "/workspace/gdk/bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/go/bin:/go/bin:${containerEnv:PATH}"
   },
-  "forwardPorts": [3000, 3038, 5432, 6379],
+  "forwardPorts": [3000, 3038],
   "postCreateCommand": ".devcontainer/post-create.sh",
   "customizations": {
     "vscode": {
